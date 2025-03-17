@@ -1,14 +1,21 @@
 import { useMemo } from "react";
-import { Dimensions } from "react-native";
 import { ObjectWithId } from "@mgcrea/react-native-dnd";
 import uuid from "react-native-uuid";
 
-export const useGridCalculation = (size: number, gap: number) => {
-  const screenWidth = Dimensions.get("window").width;
+export const useGridCalculation = (
+  size: number,
+  gap: number,
+  availableWidth: number,
+  availableHeight: number
+) => {
+  const itemWidth = useMemo(
+    () => (availableWidth - gap * size) / size,
+    [size, gap, availableWidth]
+  );
 
-  const itemSize = useMemo(
-    () => (screenWidth - gap * size) / size,
-    [size, gap, screenWidth]
+  const itemHeight = useMemo(
+    () => (availableHeight - gap * size) / size,
+    [size, gap, availableHeight]
   );
 
   const gridData = useMemo(
@@ -20,7 +27,7 @@ export const useGridCalculation = (size: number, gap: number) => {
     [size, gap]
   );
 
-  return { gridData, itemSize };
+  return { gridData, itemWidth, itemHeight };
 };
 
 export default useGridCalculation;
