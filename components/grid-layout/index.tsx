@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { Draggable, DraggableGrid } from "@mgcrea/react-native-dnd";
-import IGridProps from "./types";
-import useGridCalculation from "@/hooks/useGridCalculation";
+import { View, StyleSheet, LayoutChangeEvent } from "react-native";
+import { DraggableGrid } from "@mgcrea/react-native-dnd";
+import { IGridLayoutProps } from "./types";
 import uuid from "react-native-uuid";
+import useGridCalculation from "@/hooks/useGridCalculation";
+import Grid from "@/components/grid";
 
-const Grid: React.FC<IGridProps> = ({ color, size, gap }: IGridProps) => {
+const GridLayout: React.FC<IGridLayoutProps> = ({
+  color,
+  size,
+  gap,
+}: IGridLayoutProps) => {
   const [gridViewKey, setGridViewKey] = useState(() => uuid.v4().toString());
   const [height, setHeight] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
@@ -21,16 +26,16 @@ const Grid: React.FC<IGridProps> = ({ color, size, gap }: IGridProps) => {
     setGridViewKey(uuid.v4().toString());
   }, [size, gap]);
 
+  const onLayoutCallback = (event: LayoutChangeEvent) => {
+    const { width, height } = event.nativeEvent.layout;
+    if (width > 0 && height > 0) {
+      setWidth(width);
+      setHeight(height);
+    }
+  };
+
   return (
-    <View
-      onLayout={(event) => {
-        const { width, height } = event.nativeEvent.layout;
-        console.log(`📏 Available width: ${width}, height: ${height}`);
-        setHeight(height);
-        setWidth(width);
-      }}
-      style={styles.gridContainer}
-    >
+    <View onLayout={onLayoutCallback} style={styles.gridContainer}>
       <DraggableGrid
         key={gridViewKey}
         direction="row"
@@ -39,18 +44,13 @@ const Grid: React.FC<IGridProps> = ({ color, size, gap }: IGridProps) => {
         style={styles.grid}
       >
         {gridData.map((item) => (
-          <Draggable
+          <Grid
             key={item.id}
             id={item.id}
-            style={[
-              styles.gridItem,
-              {
-                backgroundColor: color,
-                width: itemWidth,
-                height: itemHeight,
-              },
-            ]}
-          ></Draggable>
+            color={color}
+            width={itemWidth}
+            height={itemHeight}
+          />
         ))}
       </DraggableGrid>
     </View>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   gridContainer: {
     alignItems: "center",
     justifyContent: "center",
-    height: "85%",
+    height: "80%",
   },
   grid: {
     flex: 1,
@@ -69,19 +69,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
   },
-  gridItem: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-  },
-  text: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "white",
-  },
 });
 
-export default React.memo(Grid, (prevProps, nextProps) => {
+export default React.memo(GridLayout, (prevProps, nextProps) => {
   return (
     prevProps.color === nextProps.color &&
     prevProps.size === nextProps.size &&

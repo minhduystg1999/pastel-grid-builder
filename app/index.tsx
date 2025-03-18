@@ -3,14 +3,14 @@ import { StyleSheet } from "react-native";
 import { DndProvider } from "@mgcrea/react-native-dnd";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Grid from "@/components/grid/grid";
-import GridControls from "@/components/grid-controls/grid-controls";
-import ColorPicker from "@/components/color-picker/color-picker";
+import { DEFAULT_COLOR, DEFAULT_GAP, DEFAULT_SIZE } from "@/constants/controls";
+import GridControls from "@/components/grid-controls";
+import GridLayout from "@/components/grid-layout";
 
 export default function HomeScreen() {
-  const [color, setColor] = useState("blue");
-  const [size, setSize] = useState(3);
-  const [gap, setGap] = useState(10);
+  const [color, setColor] = useState(DEFAULT_COLOR);
+  const [size, setSize] = useState(DEFAULT_SIZE);
+  const [gap, setGap] = useState(DEFAULT_GAP);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,11 +19,12 @@ export default function HomeScreen() {
           <GridControls
             size={size}
             gap={gap}
+            color={color}
             setSize={setSize}
             setGap={setGap}
+            setColor={setColor}
           />
-          <ColorPicker color={color} setColor={setColor} />
-          <Grid color={color} size={size} gap={gap} />
+          <GridLayout color={color} size={size} gap={gap} />
         </DndProvider>
       </GestureHandlerRootView>
     </SafeAreaView>

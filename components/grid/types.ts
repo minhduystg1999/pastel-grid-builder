@@ -1,5 +1,6 @@
-export default interface IGridProps {
+export interface IGridProps {
+  id: string;
   color: string;
-  size: number;
-  gap: number;
+  width: number;
+  height: number;
 }

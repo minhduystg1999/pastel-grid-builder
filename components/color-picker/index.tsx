@@ -1,12 +1,14 @@
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS } from "@/constants/colors";
+import { IColorPickerProps } from "./types";
+import { moderateScale } from "react-native-size-matters";
+import {
+  NORMAL_BORDER_RADIUS,
+  NORMAL_BORDER_WIDTH,
+  NORMAL_GAP,
+} from "@/constants/measurements";
 
-interface ColorPickerProps {
-  color: string;
-  setColor: (color: string) => void;
-}
-
-const ColorPicker: React.FC<ColorPickerProps> = ({ color, setColor }) => {
+const ColorPicker: React.FC<IColorPickerProps> = ({ color, setColor }) => {
   return (
     <View style={styles.container}>
       {COLORS.map((col) => (
@@ -23,16 +25,16 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ color, setColor }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "center",
-    paddingVertical: 10,
+    justifyContent: "space-evenly",
+    flex: 1,
+    gap: NORMAL_GAP,
   },
   colorOption: {
-    width: 40,
-    height: 40,
-    borderRadius: 25,
-    marginHorizontal: 20,
-    borderColor: "black",
-    borderWidth: 3,
+    flex: 1,
+    minHeight: moderateScale(40),
+    borderColor: "grey",
+    borderRadius: NORMAL_BORDER_RADIUS,
+    borderWidth: NORMAL_BORDER_WIDTH / 2,
   },
 });
 
