@@ -9,6 +9,6 @@ export const generatePastelColor = (
     return chroma(color).mix("white", 0.2).saturate(0.4).hex();
   }
 
-  const fadeFactor = (index / (totalCount - 1)) * 0.3 + 0.2;
+  const fadeFactor = (index / (totalCount - 1)) * 0.6 + 0.3;
   return chroma(color).mix("white", fadeFactor).saturate(0.4).hex();
 };
