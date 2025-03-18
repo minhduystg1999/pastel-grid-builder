@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, LayoutChangeEvent } from "react-native";
 import { DraggableGrid } from "@mgcrea/react-native-dnd";
 import { IGridLayoutProps } from "./types";
@@ -11,28 +11,32 @@ const GridLayout: React.FC<IGridLayoutProps> = ({
   size,
   gap,
 }: IGridLayoutProps) => {
-  const [gridViewKey, setGridViewKey] = useState(() => uuid.v4().toString());
   const [height, setHeight] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
 
   const { gridData, itemWidth, itemHeight } = useGridCalculation(
+    color,
     size,
     gap,
     width,
     height
   );
 
-  useEffect(() => {
-    setGridViewKey(uuid.v4().toString());
-  }, [size, gap]);
+  const gridViewKey = useMemo(
+    () => uuid.v4().toString(),
+    [size, gap, color, width, height]
+  );
 
-  const onLayoutCallback = (event: LayoutChangeEvent) => {
-    const { width, height } = event.nativeEvent.layout;
-    if (width > 0 && height > 0) {
-      setWidth(width);
-      setHeight(height);
-    }
-  };
+  const onLayoutCallback = useCallback(
+    (event: LayoutChangeEvent) => {
+      const { width: newWidth, height: newHeight } = event.nativeEvent.layout;
+      if (newWidth !== width || newHeight !== height) {
+        setWidth(newWidth);
+        setHeight(newHeight);
+      }
+    },
+    [width, height]
+  );
 
   return (
     <View onLayout={onLayoutCallback} style={styles.gridContainer}>
@@ -47,7 +51,7 @@ const GridLayout: React.FC<IGridLayoutProps> = ({
           <Grid
             key={item.id}
             id={item.id}
-            color={color}
+            color={item.color}
             width={itemWidth}
             height={itemHeight}
           />
