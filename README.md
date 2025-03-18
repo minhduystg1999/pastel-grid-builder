@@ -1,50 +1,66 @@
-# Welcome to your Expo app 👋
+# Pastel Grid Builder
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native application on a tablet that displays a pastel-colored grid. Users can configure grid parameters, pick a base color, and rearrange items via drag-and-drop
 
-## Get started
+## Framework and libraries
 
-1. Install dependencies
+- Expo 52.0.38
+- React Native 0.76.7
+- [@mgcrea/react-native-dnd](https://github.com/mgcrea/react-native-dnd)
+- [chroma-js](https://github.com/gka/chroma.js)
+- [react-native-size-matters](https://github.com/nirsky/react-native-size-matters/)
+
+## Installation and run the application
+
+1. **Installation**
 
    ```bash
-   npm install
+   git clone https://github.com/minhduystg1999/pastel-grid-builder.git
+
+   cd pastel-grid-builder
+
+   yarn
    ```
 
-2. Start the app
+2. **Run the application**
 
    ```bash
-    npx expo start
+      yarn start
    ```
 
-In the output, you'll find options to open the app in a
+   then press i (for iOS) / a (for Android)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   OR
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   ```bash
+      yarn ios
+   ```
 
-## Get a fresh project
+   OR
 
-When you're ready, run:
+   ```bash
+      yarn android
+   ```
 
-```bash
-npm run reset-project
-```
+3. **Testing**
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+   ```bash
+      yarn test
+   ```
 
-## Learn more
+## Additional Notes
 
-To learn more about developing your project with Expo, look at the following resources:
+1. **Design decision**
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- I decided to keep the design simple instead of making it more fancy. Mostly because of the timespan I had and I prioritied the functional features first.
 
-## Join the community
+2. **Used libraries**
 
-Join our community of developers creating universal apps.
+- [@mgcrea/react-native-dnd](https://github.com/mgcrea/react-native-dnd) supports the draggable grid and also based on **react-native-reanimated** and **react-native-gesture-handler**, both of which have smooth interaction and high performance.
+- [chroma-js](https://github.com/gka/chroma.js) supports the pastel color generation.
+- [react-native-size-matters](https://github.com/nirsky/react-native-size-matters/) for scaling and fit the design and screen components. For the simple design, this library helps reduce implementation time (but not ideal for project that need pitch perfect UI and responsive layouts)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+3. **Challenges faced**:
+
+- **Timeline**: I had used ~11 hours, more than I expected. There are still many tasks and things I want to do, especially about the UX (such as a full color picker or the toast to warning if user enter invalid input values...) and the UI.
+- **Expo**: I'm not familliar with Expo latest version folder structure and app page route, so it was a bit time-consuming at first.
