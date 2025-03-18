@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, StyleSheet } from "react-native";
 import { IGridControlsProps } from "./types";
-import {
-  DEBOUNCE_TIME,
-  DEFAULT_COLOR,
-  DEFAULT_GAP,
-  DEFAULT_SIZE,
-} from "@/constants/controls";
 import {
   NORMAL_GAP,
   NORMAL_MARGIN,
   NORMAL_PADDING,
 } from "@/constants/measurements";
-import useDebounce from "@/hooks/useDebounce";
 import ResetButton from "@/components/reset-button";
 import Input from "@/components/input";
 import ColorPicker from "@/components/color-picker";
+import { useGridControls } from "@/hooks/useGridControls";
 
 const GridControls: React.FC<IGridControlsProps> = ({
   size,
@@ -25,29 +19,8 @@ const GridControls: React.FC<IGridControlsProps> = ({
   setGap,
   setColor,
 }) => {
-  const [sizeValue, setSizeValue] = useState(size.toString());
-  const [gapValue, setGapValue] = useState(gap.toString());
-
-  const debounceSize = useDebounce(sizeValue, DEBOUNCE_TIME);
-  const debounceGap = useDebounce(gapValue, DEBOUNCE_TIME);
-
-  useEffect(() => {
-    const newSize = parseInt(debounceSize, 10);
-    if (!isNaN(newSize) && newSize > 0) setSize(newSize);
-  }, [debounceSize]);
-
-  useEffect(() => {
-    const newGap = parseInt(debounceGap, 10);
-    if (!isNaN(newGap) && newGap >= 0) setGap(newGap);
-  }, [debounceGap]);
-
-  const handleReset = () => {
-    setSize(DEFAULT_SIZE);
-    setGap(DEFAULT_GAP);
-    setColor(DEFAULT_COLOR);
-    setSizeValue(DEFAULT_SIZE.toString());
-    setGapValue(DEFAULT_GAP.toString());
-  };
+  const { sizeValue, setSizeValue, gapValue, setGapValue, handleReset } =
+    useGridControls(size, gap, color, setSize, setGap, setColor);
 
   return (
     <View style={styles.container}>
