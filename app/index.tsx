@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { DEFAULT_COLOR, DEFAULT_GAP, DEFAULT_SIZE } from "@/constants/controls";
 import GridControls from "@/components/grid-controls";
 import GridLayout from "@/components/grid-layout";
+import { NORMAL_PADDING } from "@/constants/measurements";
 
 export default function HomeScreen() {
   const [color, setColor] = useState(DEFAULT_COLOR);
@@ -34,6 +35,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 5,
+    padding: NORMAL_PADDING / 2,
+    backgroundColor: "white",
   },
 });
