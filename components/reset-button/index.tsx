@@ -8,7 +8,11 @@ import {
 
 const ResetButton: React.FC<IResetButtonProps> = ({ onReset }) => {
   return (
-    <TouchableOpacity style={styles.resetButton} onPress={onReset}>
+    <TouchableOpacity
+      style={styles.resetButton}
+      onPress={onReset}
+      testID="reset-button"
+    >
       <Text style={styles.resetText}>Reset</Text>
     </TouchableOpacity>
   );

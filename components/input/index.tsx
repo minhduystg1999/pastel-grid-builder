@@ -17,6 +17,7 @@ const Input: React.FC<IInputProps> = ({ label, value, onChange }) => {
         keyboardType="numeric"
         onChangeText={onChange}
         placeholder={`Enter ${label.toLowerCase()}`}
+        testID={"grid-input"}
       />
     </View>
   );

@@ -10,12 +10,13 @@ import {
 
 const ColorPicker: React.FC<IColorPickerProps> = ({ color, setColor }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="color-picker">
       {COLORS.map((col) => (
         <TouchableOpacity
           key={col}
           style={[styles.colorOption, { backgroundColor: col }]}
           onPress={() => setColor(col)}
+          testID={`color-option-${col}`}
         />
       ))}
     </View>

@@ -1,4 +1,3 @@
-import React from "react";
 import { View, StyleSheet } from "react-native";
 import { IGridControlsProps } from "./types";
 import {
@@ -23,17 +22,17 @@ const GridControls: React.FC<IGridControlsProps> = ({
     useGridControls(size, gap, color, setSize, setGap, setColor);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.controlGroup}>
+    <View style={styles.container} testID="grid-controls">
+      <View style={styles.controlGroup} testID="grid-inputs-group">
         <Input label="Grid Size" value={sizeValue} onChange={setSizeValue} />
         <Input label="Grid Gap" value={gapValue} onChange={setGapValue} />
       </View>
 
-      <View style={styles.controlGroup}>
+      <View style={styles.controlGroup} testID="grid-color-picker-group">
         <ColorPicker color={color} setColor={setColor} />
       </View>
 
-      <View style={styles.controlGroup}>
+      <View style={styles.controlGroup} testID="grid-reset-button-group">
         <ResetButton onReset={handleReset} />
       </View>
     </View>

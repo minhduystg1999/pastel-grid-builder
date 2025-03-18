@@ -39,7 +39,11 @@ const GridLayout: React.FC<IGridLayoutProps> = ({
   );
 
   return (
-    <View onLayout={onLayoutCallback} style={styles.gridContainer}>
+    <View
+      onLayout={onLayoutCallback}
+      style={styles.gridContainer}
+      testID="grid-layout"
+    >
       <DraggableGrid
         key={gridViewKey}
         direction="row"
