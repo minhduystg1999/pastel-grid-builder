@@ -16,11 +16,6 @@ const Grid: React.FC<IGridProps> = ({ id, color, width, height }) => {
 const styles = StyleSheet.create({
   item: {
     borderRadius: NORMAL_BORDER_RADIUS,
-    shadowColor: "#000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 4,
   },
 });
 
